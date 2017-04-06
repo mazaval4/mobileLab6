@@ -66,9 +66,9 @@ class PlaceLibrary{
                                 self.desc = (dict2["description"] as? String)!
                                 self.category = (dict2["category"] as? String)!
                                 
-                                let placeDescription = PlaceDescription(addressTitle: addressTitle,addressStreet: addressStreet,elevation: elevation,latitude: latitude,longitude: longitude,name: name,image: image,description: desc,category: category);
+//                                let placeDescription = PlaceDescription(addressTitle: addressTitle,addressStreet: addressStreet,elevation: elevation,latitude: latitude,longitude: longitude,name: name,image: image,description: desc,category: category);
                                 
-                                PlaceLibrary.sharedInstance.add(place: placeDescription);
+//                                PlaceLibrary.sharedInstance.add(place: placeDescription);
                                 
                                 
                             }

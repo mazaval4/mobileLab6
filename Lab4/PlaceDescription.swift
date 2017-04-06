@@ -27,119 +27,80 @@ import UIKit
 
 class PlaceDescription
 {
-    var addressTitle: String
-    var addressStreet: String
-    var elevation: Double;
-    var latitude: Double;
-    var longitude: Double;
-    var name: String;
-    var image: String
-    var description: String;
-    var category: String;
+    open var addressTitle: String
+    open var addressStreet: String
+    open var elevation: Double;
+    open var latitude: Double;
+    open var longitude: Double;
+    open var name: String;
+    open var image: String
+    open var description: String;
+    open var category: String;
     
-    
-    init(addressTitle:String,addressStreet:String,elevation:Double,latitude:Double,longitude:Double,name:String,image:String,description:String, category:String)
-    {
-        self.addressTitle = addressTitle;
-        self.addressStreet = addressStreet;
-        self.elevation = elevation;
-        self.latitude = latitude;
-        self.longitude = longitude;
-        self.name = name;
-        self.image = image;
-        self.description = description;
-        self.category = category;
+    init (jsonStr: String){
+        self.addressTitle = "";
+        self.addressStreet = "";
+        self.elevation = 0;
+        self.latitude = 0;
+        self.longitude = 0;
+        self.name = "";
+        self.image = "";
+        self.description = "";
+        self.category = "";
         
+        if let data: Data = jsonStr.data(using: String.Encoding.utf8){
+            do{
+                //change these to reflect json file
+                let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
+                self.addressTitle = (dict!["name"] as? String)!
+                self.addressStreet = (dict!["name"] as? String)!
+                self.elevation = (dict!["studentid"] as? Double)!
+                self.latitude = (dict!["studentid"] as? Double)!
+                self.longitude = (dict!["studentid"] as? Double)!
+                self.name = (dict!["name"] as? String)!
+                self.image = (dict!["name"] as? String)!
+                self.description = (dict!["name"] as? String)!
+                self.category = (dict!["name"] as? String)!
+            } catch {
+                print("unable to convert to dictionary")
+                
+            }
+        }
+    }
+    //change the takes to what the json file is
+    init(dict: [String:Any]){
+        self.addressTitle = dict["a"] as! String
+        self.addressStreet = dict["takes"] as! String
+        self.elevation = dict["takes"] as! Double
+        self.latitude = dict["takes"] as! Double
+        self.longitude = dict["takes"] as! Double
+        self.name = dict["takes"] as! String
+        self.image = dict["takes"] as! String
+        self.description = dict["takes"] as! String
+        self.category = dict["takes"] as! String
     }
     
-    
-    func setAddressTitle(addressTitle:String) -> Void {
-        self.addressTitle = addressTitle;
-    }
-    func getAddressTitle() -> String{
-        return addressTitle;
-    }
-    
-    func setAddressStreet(addressStreet:String) -> Void {
-        self.addressStreet = addressStreet;
-    }
-    func getAddressStreet() -> String{
-        return addressStreet;
-    }
-    
-    func setElevation(elevation:Double) -> Void {
-        self.elevation = elevation;
-    }
-    func getElevation() -> Double{
-        return elevation;
+    //change these to reflect json file
+    func toJsonString() -> String {
+        var jsonStr = "";
+        let dict = ["addresTitle": addressTitle, "addressteet": addressStreet, "elecation":elevation,"latitude":latitude,"longitude":longitude,"name":name
+            ,"image":image,"desc":description,"cate":category] as [String : Any]
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            // here "jsonData" is the dictionary encoded in JSON data
+            jsonStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+        } catch let error as NSError {
+            print(error)
+        }
+        return jsonStr
     }
     
-    func setLatitude(latitude:Double) -> Void {
-        self.latitude = latitude;
+    //change these to reflect json file
+    func toDict() -> [String:Any] {
+        let dict:[String:Any] = ["addresTitle": addressTitle, "addressteet": addressStreet, "elecation":elevation,"latitude":latitude,"longitude":longitude,"name":name
+            ,"image":image,"desc":description,"cate":category] as [String : Any]
+        return dict
     }
-    func getLatitude() -> Double{
-        return latitude;
-    }
-    
-    func setLongitude(longitude:Double) -> Void {
-        self.longitude = longitude;
-    }
-    func getLongitude() -> Double{
-        return longitude;
-    }
-    
-    func setName(name:String) -> Void {
-        self.name = name;
-    }
-    func getName() -> String{
-        return name;
-    }
-    
-    func setDescription(description:String) -> Void {
-        self.description = description;
-    }
-    func getDescription() -> String{
-        return description;
-    }
-    
-    func setCategory(category:String) -> Void {
-        self.category = category;
-    }
-    func getCategory() -> String{
-        return category;
-    }
-    
-    func setImage(image:String) -> Void {
-        self.image = image;
-    }
-    func getImage() -> String{
-        return image;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
 }

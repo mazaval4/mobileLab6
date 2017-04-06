@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
 
-    let urlString:String = "http://127.0.0.1:9090"
+    
     
     var array =  ["School","Travel","Hike"]
     var intPassed = Double()
@@ -28,6 +28,38 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     
     var placeLibary = PlaceLibrary.sharedInstance;
     var myarray = PlaceLibrary.sharedInstance.getPlacesArray();
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+//        desc.text = myarray[placeLibary.getRowClicked()].getDescription()
+//        name.text = myarray[placeLibary.getRowClicked()].getName()
+//        addressTitle.text = myarray[placeLibary.getRowClicked()].getAddressTitle()
+//        addressStreet.text = myarray[placeLibary.getRowClicked()].getAddressStreet()
+//        elevation.text = String(myarray[placeLibary.getRowClicked()].getElevation())
+//        latitude.text = String(myarray[placeLibary.getRowClicked()].getLatitude())
+//        longitude.text = String(myarray[placeLibary.getRowClicked()].getLongitude())
+//        image.text = myarray[placeLibary.getRowClicked()].getImage()
+//        let tempe = myarray[placeLibary.getRowClicked()].getCategory();
+        
+//        if(tempe == "School"){
+//            myPicker.selectRow(0, inComponent: 0, animated: true)
+//        }
+//        else if(tempe == "Travel"){
+//            myPicker.selectRow(1, inComponent: 0, animated: true)
+//        }
+//        else{
+//            myPicker.selectRow(2, inComponent: 0, animated: true)
+//        }
+        
+        
+        elevation.keyboardType = UIKeyboardType.numberPad;
+        latitude.keyboardType = UIKeyboardType.numberPad;
+        longitude.keyboardType = UIKeyboardType.numberPad;
+        
+        
+    }
     
     @IBAction func deleteButton(_ sender: Any) {
         let alertController = UIAlertController(title: "Places", message:
@@ -47,48 +79,18 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
         self.present(alertController, animated: true, completion: nil)
         
         
-        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude: Double(longitude.text!)!,
-                                     name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
+//        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude: Double(longitude.text!)!,
+//                                     name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
         let itemIndex = placeLibary.getRowClicked();
         placeLibary.deleteArrayElement(index: itemIndex);
-        placeLibary.addAtIndex(index: itemIndex, place: temp1);
+//        placeLibary.addAtIndex(index: itemIndex, place: temp1);
         
         
         
     }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-        desc.text = myarray[placeLibary.getRowClicked()].getDescription()
-        name.text = myarray[placeLibary.getRowClicked()].getName()
-        addressTitle.text = myarray[placeLibary.getRowClicked()].getAddressTitle()
-        addressStreet.text = myarray[placeLibary.getRowClicked()].getAddressStreet()
-        elevation.text = String(myarray[placeLibary.getRowClicked()].getElevation())
-        latitude.text = String(myarray[placeLibary.getRowClicked()].getLatitude())
-        longitude.text = String(myarray[placeLibary.getRowClicked()].getLongitude())
-        image.text = myarray[placeLibary.getRowClicked()].getImage()
-        let tempe = myarray[placeLibary.getRowClicked()].getCategory();
-        
-        if(tempe == "School"){
-            myPicker.selectRow(0, inComponent: 0, animated: true)
-        }
-        else if(tempe == "Travel"){
-            myPicker.selectRow(1, inComponent: 0, animated: true)
-        }
-        else{
-            myPicker.selectRow(2, inComponent: 0, animated: true)
-        }
-        
-        
-        elevation.keyboardType = UIKeyboardType.numberPad;
-        latitude.keyboardType = UIKeyboardType.numberPad;
-        longitude.keyboardType = UIKeyboardType.numberPad;
-        
-        
-    }
+    
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         

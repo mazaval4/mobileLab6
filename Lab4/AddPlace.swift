@@ -46,9 +46,9 @@ class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
         self.present(alertController, animated: true, completion: nil)
         
         
-        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude: Double(longitude.text!)!,name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
+//        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude: Double(longitude.text!)!,name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
         
-        placeLibary.addAtIndex(index: 0, place: temp1);
+//        placeLibary.addAtIndex(index: 0, place: temp1);
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

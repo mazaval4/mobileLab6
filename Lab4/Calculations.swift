@@ -22,9 +22,9 @@ class Calculations: UIViewController{
     
     override func viewDidLoad() {
         print(placeLibary.getRowClicked())
-        latitude.text = String(myarray[placeLibary.getRowClicked()].getLatitude())
-        longitude.text = String(myarray[placeLibary.getRowClicked()].getLongitude())
-        elevation.text = String(myarray[placeLibary.getRowClicked()].getElevation())
+//        latitude.text = String(myarray[placeLibary.getRowClicked()].getLatitude())
+//        longitude.text = String(myarray[placeLibary.getRowClicked()].getLongitude())
+//        elevation.text = String(myarray[placeLibary.getRowClicked()].getElevation())
         super.viewDidLoad()
     }
     
