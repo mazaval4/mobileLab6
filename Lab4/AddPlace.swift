@@ -14,7 +14,7 @@ class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
 
     var array =  ["School","Travel","Hike"]
     var placeLibary = PlaceLibrary.sharedInstance;
-    
+    var urlString:String = "";
     @IBOutlet weak var desc: UITextField!
     
     @IBOutlet weak var addressTitle: UITextField!
@@ -36,6 +36,7 @@ class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
     }
     
     
@@ -46,9 +47,30 @@ class AddPlace: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
         self.present(alertController, animated: true, completion: nil)
         
         
-//        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude: Double(longitude.text!)!,name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
+        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude: Double(longitude.text!)!,name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
         
-//        placeLibary.addAtIndex(index: 0, place: temp1);
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject]  {
+            self.urlString = ((dict["ServerURLString"]) as?  String!)!
+            NSLog("The default urlString from info.plist is \(self.urlString)")
+        }else{
+            NSLog("error getting urlString from info.plist")
+        }
+        
+        self.addPlace(urlString, temp1)
+    }
+    
+    
+    func addPlace(_ urlString:String,_ place:PlaceDescription) {
+        let aConnect:PlacesStub = PlacesStub(urlString: urlString)
+        let resultNames:Bool = aConnect.add(placeDescription: place,callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                
+                
+            }
+        })  // end of method call to getNames
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

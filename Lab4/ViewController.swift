@@ -93,19 +93,11 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     @IBAction func deleteButton(_ sender: Any) {
         let alertController = UIAlertController(title: "Places", message:
             "Place Removed!", preferredStyle: UIAlertControllerStyle.alert)
-        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: backAction))
         self.present(alertController, animated: true, completion: nil)
+        self.removePlace()
         
         
-            let aConnect:PlacesStub = PlacesStub(urlString: urlString)
-            let resGet:Bool = aConnect.remove(placeName: ViewController.stringPassed, callback: { (res: String, err: String?) -> Void in
-                if err != nil {
-                    NSLog(err!)
-                }else{
-                    NSLog(res)
-                    
-                }
-            })
         }
         
     
@@ -115,15 +107,10 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
             "Place Saved!", preferredStyle: UIAlertControllerStyle.alert)
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
-        
-        
-//        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude: Double(longitude.text!)!,
-//                                     name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
-        let itemIndex = placeLibary.getRowClicked();
-        placeLibary.deleteArrayElement(index: itemIndex);
-//        placeLibary.addAtIndex(index: itemIndex, place: temp1);
-        
-        
+        let temp1 = PlaceDescription(addressTitle: addressTitle.text!,addressStreet: addressStreet.text!,elevation: Double(elevation.text!)!, latitude: Double(latitude.text!)!,longitude:
+            Double(longitude.text!)!,name: name.text!,image: image.text!,description: desc.text!,category: placeLibary.getCategorySelected())
+        self.removePlace()
+        self.addPlace(temp1)
         
     }
     
@@ -144,6 +131,37 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
         return 1;
     }
     
+    
+    func removePlace() {
+        let aConnect:PlacesStub = PlacesStub(urlString: urlString)
+        let resGet:Bool = aConnect.remove(placeName: ViewController.stringPassed, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                
+            }
+        })
+    }
+    
+    
+    func addPlace(_ place:PlaceDescription) {
+        let aConnect:PlacesStub = PlacesStub(urlString: urlString)
+        let resultNames:Bool = aConnect.add(placeDescription: place,callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                
+                
+            }
+        })
+    }
+    
+    func backAction(action: UIAlertAction){
+        //print("Back Button Clicked")
+        _ = navigationController?.popViewController(animated: true)
+    }
     
     
     

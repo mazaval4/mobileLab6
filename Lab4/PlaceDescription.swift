@@ -37,6 +37,22 @@ class PlaceDescription
     open var description: String;
     open var category: String;
     
+    
+    init(addressTitle:String,addressStreet:String,elevation:Double,latitude:Double,longitude:Double,name:String,image:String,description:String, category:String)
+    {
+        self.addressTitle = addressTitle;
+        self.addressStreet = addressStreet;
+        self.elevation = elevation;
+        self.latitude = latitude;
+        self.longitude = longitude;
+        self.name = name;
+        self.image = image;
+        self.description = description;
+        self.category = category;
+        
+    }
+    
+    
     init (jsonStr: String){
         self.addressTitle = "";
         self.addressStreet = "";

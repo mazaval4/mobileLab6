@@ -59,6 +59,7 @@ class PlaceList: UITableViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NSLog("it ran");
         self.callGetNamesNUpdateStudentsPicker(urlString)
     }
     
