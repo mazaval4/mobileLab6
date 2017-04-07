@@ -14,17 +14,24 @@ class PlaceList: UITableViewController{
     var myArray: Array<PlaceDescription> = Array();
     var places:[String]=[String]()
     var placeLibrary = PlaceLibrary.sharedInstance;
-    let urlString:String = "http://127.0.0.1:9090";
+    var urlString = "";
+    
     
     
     override func viewDidLoad() {
         library.getAssets();
         myArray = PlaceLibrary.sharedInstance.getPlacesArray();
         super.viewDidLoad()
-       self.callGetNamesNUpdateStudentsPicker()
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject]  {
+            self.urlString = ((dict["ServerURLString"]) as?  String!)!
+            NSLog("The default urlString from info.plist is \(self.urlString)")
+        }else{
+            NSLog("error getting urlString from info.plist")
+        }
+        self.callGetNamesNUpdateStudentsPicker(urlString)
         
     }
-    func callGetNamesNUpdateStudentsPicker() {
+    func callGetNamesNUpdateStudentsPicker(_ urlString:String) {
         let aConnect:PlacesStub = PlacesStub(urlString: urlString)
         let resultNames:Bool = aConnect.getNames(callback: { (res: String, err: String?) -> Void in
             if err != nil {

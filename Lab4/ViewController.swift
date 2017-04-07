@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
 
     
-    let urlString:String = "http://127.0.0.1:9090";
+    var urlString:String = "";
     var array =  ["School","Travel","Hike"]
     var intPassed = Double()
     @IBOutlet weak var pickerView: UIPickerView!
@@ -31,7 +31,13 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSLog(ViewController.stringPassed+" is the string passe")
+        
+        if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject]  {
+            self.urlString = ((dict["ServerURLString"]) as?  String!)!
+            NSLog("The default urlString from info.plist is \(self.urlString)")
+        }else{
+            NSLog("error getting urlString from info.plist")
+        }
         
 //        desc.text = myarray[placeLibary.getRowClicked()].getDescription()
 //        name.text = myarray[placeLibary.getRowClicked()].getName()
@@ -75,6 +81,25 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
                         let aDict:[String:AnyObject] = (dict!["result"] as? [String:AnyObject])!
                         let aPlace:PlaceDescription = PlaceDescription(dict: aDict)
                         self.desc.text = aPlace.description
+                        self.name.text = aPlace.name
+                        self.addressTitle.text = aPlace.addressTitle
+                        self.addressStreet.text = aPlace.addressStreet
+                        self.elevation.text = String(aPlace.elevation)
+                        self.latitude.text = String(aPlace.latitude)
+                        self.longitude.text = String(aPlace.longitude)
+                        self.image.text = aPlace.image
+                        let tempe = aPlace.category
+                        
+                        if(tempe == "School"){
+                            self.myPicker.selectRow(0, inComponent: 0, animated: true)
+                        }
+                        else if(tempe == "Travel"){
+                            self.myPicker.selectRow(1, inComponent: 0, animated: true)
+                        }
+                        else{
+                            self.myPicker.selectRow(2, inComponent: 0, animated: true)
+                        }
+
                     } catch {
                         NSLog("unable to convert to dictionary")
                     }
