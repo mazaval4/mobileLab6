@@ -39,25 +39,7 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
             NSLog("error getting urlString from info.plist")
         }
         
-//        desc.text = myarray[placeLibary.getRowClicked()].getDescription()
-//        name.text = myarray[placeLibary.getRowClicked()].getName()
-//        addressTitle.text = myarray[placeLibary.getRowClicked()].getAddressTitle()
-//        addressStreet.text = myarray[placeLibary.getRowClicked()].getAddressStreet()
-//        elevation.text = String(myarray[placeLibary.getRowClicked()].getElevation())
-//        latitude.text = String(myarray[placeLibary.getRowClicked()].getLatitude())
-//        longitude.text = String(myarray[placeLibary.getRowClicked()].getLongitude())
-//        image.text = myarray[placeLibary.getRowClicked()].getImage()
-//        let tempe = myarray[placeLibary.getRowClicked()].getCategory();
-        
-//        if(tempe == "School"){
-//            myPicker.selectRow(0, inComponent: 0, animated: true)
-//        }
-//        else if(tempe == "Travel"){
-//            myPicker.selectRow(1, inComponent: 0, animated: true)
-//        }
-//        else{
-//            myPicker.selectRow(2, inComponent: 0, animated: true)
-//        }
+
         self.callGetNPopulatUIFields()
         
         elevation.keyboardType = UIKeyboardType.numberPad;
@@ -114,10 +96,19 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.default,handler: nil))
         self.present(alertController, animated: true, completion: nil)
         
-        let itemIndex = placeLibary.getRowClicked();
-        placeLibary.deleteArrayElement(index: itemIndex);
         
-    }
+            let aConnect:PlacesStub = PlacesStub(urlString: urlString)
+            let resGet:Bool = aConnect.remove(placeName: ViewController.stringPassed, callback: { (res: String, err: String?) -> Void in
+                if err != nil {
+                    NSLog(err!)
+                }else{
+                    NSLog(res)
+                    
+                }
+            })
+        }
+        
+    
     
     @IBAction func saveButton(_ sender: Any) {
         let alertController = UIAlertController(title: "Places", message:

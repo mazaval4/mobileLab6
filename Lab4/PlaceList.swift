@@ -19,8 +19,8 @@ class PlaceList: UITableViewController{
     
     
     override func viewDidLoad() {
-        library.getAssets();
-        myArray = PlaceLibrary.sharedInstance.getPlacesArray();
+        
+        
         super.viewDidLoad()
         if let path = Bundle.main.path(forResource: "Info", ofType: "plist"),let dict = NSDictionary(contentsOfFile: path) as? [String: AnyObject]  {
             self.urlString = ((dict["ServerURLString"]) as?  String!)!
@@ -59,7 +59,7 @@ class PlaceList: UITableViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        tableView.reloadData()
+        self.callGetNamesNUpdateStudentsPicker(urlString)
     }
     
     
