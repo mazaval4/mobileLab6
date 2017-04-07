@@ -50,7 +50,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Lab4" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlaceDescription" id="BYZ-38-t0r" customClass="ViewController" customModule="Lab4" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -489,7 +489,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mSE-Mr-c0V" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Q1s-OQ-zGK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Q1s-OQ-zGK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

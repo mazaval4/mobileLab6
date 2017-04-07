@@ -11,11 +11,11 @@ import UIKit
 class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSource{
 
     
-    
+    let urlString:String = "http://127.0.0.1:9090";
     var array =  ["School","Travel","Hike"]
     var intPassed = Double()
     @IBOutlet weak var pickerView: UIPickerView!
-    
+    static var stringPassed = ""
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var desc: UITextField!
     @IBOutlet weak var addressTitle: UITextField!
@@ -31,7 +31,7 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        NSLog(ViewController.stringPassed+" is the string passe")
         
 //        desc.text = myarray[placeLibary.getRowClicked()].getDescription()
 //        name.text = myarray[placeLibary.getRowClicked()].getName()
@@ -52,13 +52,35 @@ class ViewController: UIViewController, UIPickerViewDelegate,UIPickerViewDataSou
 //        else{
 //            myPicker.selectRow(2, inComponent: 0, animated: true)
 //        }
-        
+        self.callGetNPopulatUIFields()
         
         elevation.keyboardType = UIKeyboardType.numberPad;
         latitude.keyboardType = UIKeyboardType.numberPad;
         longitude.keyboardType = UIKeyboardType.numberPad;
         
         
+    }
+    
+    
+    func callGetNPopulatUIFields(){
+        let aConnect:PlacesStub = PlacesStub(urlString: urlString)
+        let resGet:Bool = aConnect.get(name: ViewController.stringPassed, callback: { (res: String, err: String?) -> Void in
+            if err != nil {
+                NSLog(err!)
+            }else{
+                NSLog(res)
+                if let data: Data = res.data(using: String.Encoding.utf8){
+                    do{
+                        let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
+                        let aDict:[String:AnyObject] = (dict!["result"] as? [String:AnyObject])!
+                        let aPlace:PlaceDescription = PlaceDescription(dict: aDict)
+                        self.desc.text = aPlace.description
+                    } catch {
+                        NSLog("unable to convert to dictionary")
+                    }
+                }
+            }
+        })
     }
     
     @IBAction func deleteButton(_ sender: Any) {

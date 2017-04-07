@@ -52,15 +52,15 @@ class PlaceDescription
             do{
                 //change these to reflect json file
                 let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
-                self.addressTitle = (dict!["name"] as? String)!
-                self.addressStreet = (dict!["name"] as? String)!
-                self.elevation = (dict!["studentid"] as? Double)!
-                self.latitude = (dict!["studentid"] as? Double)!
-                self.longitude = (dict!["studentid"] as? Double)!
+                self.addressTitle = (dict!["address-title"] as? String)!
+                self.addressStreet = (dict!["address-street"] as? String)!
+                self.elevation = (dict!["elevation"] as? Double)!
+                self.latitude = (dict!["latitude"] as? Double)!
+                self.longitude = (dict!["longitude"] as? Double)!
                 self.name = (dict!["name"] as? String)!
-                self.image = (dict!["name"] as? String)!
-                self.description = (dict!["name"] as? String)!
-                self.category = (dict!["name"] as? String)!
+                self.image = (dict!["image"] as? String)!
+                self.description = (dict!["description"] as? String)!
+                self.category = (dict!["category"] as? String)!
             } catch {
                 print("unable to convert to dictionary")
                 
@@ -69,22 +69,22 @@ class PlaceDescription
     }
     //change the takes to what the json file is
     init(dict: [String:Any]){
-        self.addressTitle = dict["a"] as! String
-        self.addressStreet = dict["takes"] as! String
-        self.elevation = dict["takes"] as! Double
-        self.latitude = dict["takes"] as! Double
-        self.longitude = dict["takes"] as! Double
-        self.name = dict["takes"] as! String
-        self.image = dict["takes"] as! String
-        self.description = dict["takes"] as! String
-        self.category = dict["takes"] as! String
+        self.addressTitle = dict["address-title"] as! String
+        self.addressStreet = dict["address-street"] as! String
+        self.elevation = dict["elevation"] as! Double
+        self.latitude = dict["latitude"] as! Double
+        self.longitude = dict["longitude"] as! Double
+        self.name = dict["name"] as! String
+        self.image = dict["image"] as! String
+        self.description = dict["description"] as! String
+        self.category = dict["category"] as! String
     }
     
     //change these to reflect json file
     func toJsonString() -> String {
         var jsonStr = "";
-        let dict = ["addresTitle": addressTitle, "addressteet": addressStreet, "elecation":elevation,"latitude":latitude,"longitude":longitude,"name":name
-            ,"image":image,"desc":description,"cate":category] as [String : Any]
+        let dict = ["address-title": addressTitle, "address-street": addressStreet, "elevation":elevation,"latitude":latitude,"longitude":longitude,"name":name
+            ,"image":image,"description":description,"category":category] as [String : Any]
         do {
             let jsonData = try JSONSerialization.data(withJSONObject: dict, options: JSONSerialization.WritingOptions.prettyPrinted)
             // here "jsonData" is the dictionary encoded in JSON data
@@ -97,8 +97,8 @@ class PlaceDescription
     
     //change these to reflect json file
     func toDict() -> [String:Any] {
-        let dict:[String:Any] = ["addresTitle": addressTitle, "addressteet": addressStreet, "elecation":elevation,"latitude":latitude,"longitude":longitude,"name":name
-            ,"image":image,"desc":description,"cate":category] as [String : Any]
+        let dict:[String:Any] = ["address-title": addressTitle, "address-street": addressStreet, "elevation":elevation,"latitude":latitude,"longitude":longitude,"name":name
+            ,"image":image,"description":description,"category":category] as [String : Any]
         return dict
     }
     

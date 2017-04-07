@@ -22,25 +22,23 @@ class PlaceList: UITableViewController{
         myArray = PlaceLibrary.sharedInstance.getPlacesArray();
         super.viewDidLoad()
        self.callGetNamesNUpdateStudentsPicker()
+        
     }
-    
     func callGetNamesNUpdateStudentsPicker() {
         let aConnect:PlacesStub = PlacesStub(urlString: urlString)
         let resultNames:Bool = aConnect.getNames(callback: { (res: String, err: String?) -> Void in
             if err != nil {
                 NSLog(err!)
             }else{
-                NSLog(res)
+//                NSLog(res)
                 if let data: Data = res.data(using: String.Encoding.utf8){
                     do{
                         let dict = try JSONSerialization.jsonObject(with: data,options:.mutableContainers) as?[String:AnyObject]
                         self.places = (dict!["result"] as? [String])!
-                        //change these to reflect json file
                         self.places = Array(self.places).sorted()
-//                        self.studentPicker.reloadAllComponents()
-//                        if self.students.count > 0 {
-//                            self.callGetNPopulatUIFields(self.students[0])
-//
+                        self.tableView.reloadData();
+//                        for ob in self.places{
+//                            NSLog(ob)
 //                        }
                     } catch {
                         print("unable to convert to dictionary")
@@ -54,20 +52,17 @@ class PlaceList: UITableViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        myArray = PlaceLibrary.sharedInstance.getPlacesArray();
-        tableView.reloadData()
+//        tableView.reloadData()
     }
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return myArray.count;
+        return self.places.count;
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customcell", for: indexPath)
-//        print(myarray[indexPath.item].getName())
-
-//        cell.textLabel?.text = myArray[indexPath.item].getName()
+        cell.textLabel?.text = self.places[indexPath.item]
         return cell
     }
     
@@ -81,6 +76,7 @@ class PlaceList: UITableViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var selectedItem = indexPath
+        ViewController.stringPassed = self.places[selectedItem.row]
         placeLibrary.setRowClicked(row: selectedItem.row);
         
     }
